@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Événement Palestine</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    overflow-x: hidden;
+    background:
+        radial-gradient(circle at top left, rgba(0,122,61,0.4), transparent 40%),
+        radial-gradient(circle at bottom right, rgba(206,17,38,0.4), transparent 40%),
+        linear-gradient(135deg, #000, #111);
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.poster {
+    width: 70%; 
+    max-height: 60vh;
+    object-fit: contain;
+    border-radius: 18px;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.7);
+    transition: transform 0.3s ease;
+}
+
+.poster:hover {
+    transform: scale(1.02);
+}
+
+.lang-btn {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    z-index: 5;
+}
+
+.info h1 {
+    font-size: 2.3rem;
+    font-weight: 800;
+    margin: 20px 0 5px;
+}
+
+.engage {
+    margin: 25px auto;
+    max-width: 700px;
+    font-size: 1.05rem;
+}
+
+.prices {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.price-card {
+    background: rgba(255,255,255,0.08);
+    border-radius: 18px;
+    padding: 22px 35px;
+}
+
+.price {
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: linear-gradient(90deg, #007a3d, #fff, #ce1126);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.buttons {
+    margin: 35px 0;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+button {
+    padding: 15px 25px;
+    border-radius: 50px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    transform: scale(1.05);
+    background: linear-gradient(90deg, #007a3d, #ce1126);
+}
+
+.reserve {
+    background: linear-gradient(90deg, #007a3d, #ce1126);
+    color: white;
+}
+
+.online {
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+}
+
+/* 🍉 ANIMATION PASTEQUE + 🇵🇸 */
+.watermelon {
+    position: fixed;
+    top: -50px;
+    font-size: 30px;
+    animation: float linear infinite;
+    opacity: 0.6;
+}
+
+@keyframes float {
+    from { transform: translateY(-50px); }
+    to { transform: translateY(110vh); }
+}
+
+#ticket {
+    display:none; 
+    margin-top:30px; 
+    background:rgba(255,255,255,0.1); 
+    padding:25px; 
+    border-radius:20px;
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+    .info h1 { font-size: 1.8rem; }
+    .poster { width: 90%; max-height: 50vh; }
+}
+</style>
+</head>
+
+<body>
+
+<button class="lang-btn" onclick="toggleLang()">🌍 FR / EN</button>
+
+<div class="container">
+
+<img src="https://i.ibb.co/v6v8vbXh/Design-sans-titre.png" class="poster">
+
+<div class="info">
+    <h1 id="date">Janvier / Février 2026</h1>
+    <p id="place">📍 Sainte-Marie</p>
+</div>
+
+<div class="engage" id="engage">
+✊ Un événement pour la mémoire, la solidarité et la dignité.  
+🍉 Soutien au peuple palestinien, à la paix, à la justice et à la liberté.
+</div>
+
+<div class="prices">
+    <div class="price-card">
+        <h3 id="entry">Entrée</h3>
+        <div class="price">5€</div>
+    </div>
+    <div class="price-card">
+        <h3 id="vip">VIP</h3>
+        <div class="price">10€</div>
+    </div>
+</div>
+
+<div class="buttons">
+    <button class="reserve" onclick="payer(5,'Entrée')">
+        💳 Payer 5€ – Entrée
+    </button>
+    <button class="reserve" onclick="payer(10,'VIP')">
+        💳 Payer 10€ – VIP
+    </button>
+    <button class="online" onclick="genererTicket()">
+        ✅ J’ai payé – Générer mon ticket
+    </button>
+</div>
+
+<div id="ticket">
+    <h2>🎟️ TICKET OFFICIEL</h2>
+    <p><strong>Événement :</strong> Solidarité Palestine 🍉</p>
+    <p><strong>Date :</strong> Janvier / Février 2026</p>
+    <p><strong>Lieu :</strong> Sainte-Marie</p>
+    <p id="ticketType"></p>
+    <p id="ticketPrice"></p>
+    <p id="ticketNumber"></p>
+    <canvas id="qrcode" style="margin-top:15px;"></canvas>
+    <p style="opacity:0.7;font-size:0.9rem;">Paiement effectué via PayPal</p>
+    <button class="reserve" onclick="telechargerTicket()">
+        📄 Télécharger le ticket
+    </button>
+</div>
+
+</div>
+
+<script>
+/* 🌍 MULTILINGUE */
+let fr = true;
+function toggleLang() {
+    fr = !fr;
+    document.getElementById("date").innerText = fr ? "Janvier / Février 2026" : "January / February 2026";
+    document.getElementById("place").innerText = "📍 Sainte-Marie";
+    document.getElementById("entry").innerText = fr ? "Entrée" : "Entry";
+    document.getElementById("vip").innerText = "VIP";
+    document.querySelectorAll(".reserve")[0].innerText = fr ? "💳 Payer 5€ – Entrée" : "💳 Pay 5€ – Entry";
+    document.querySelectorAll(".reserve")[1].innerText = fr ? "💳 Payer 10€ – VIP" : "💳 Pay 10€ – VIP";
+    document.querySelector(".online").innerText = fr ? "✅ J’ai payé – Générer mon ticket" : "✅ I paid – Generate my ticket";
+    document.getElementById("engage").innerText = fr
+        ? "✊ Un événement pour la mémoire, la solidarité et la dignité. 🍉 Soutien au peuple palestinien, à la paix, à la justice et à la liberté."
+        : "✊ An event for memory, solidarity and dignity. 🍉 Support for the Palestinian people, peace, justice and freedom.";
+}
+
+/* 💳 PAYPAL + TICKET + QR */
+let billet = { prix:null, type:null };
+function payer(prix,type){ billet.prix=prix; billet.type=type; window.open(`https://paypal.me/Isma016/${prix}`,'_blank'); }
+
+function genererTicket(){
+    if(!billet.prix){ alert("Veuillez d'abord effectuer le paiement."); return; }
+    const numero = "SM-"+Math.floor(Math.random()*1000000);
+    document.getElementById("ticketType").innerHTML="<strong>Billet :</strong> "+billet.type;
+    document.getElementById("ticketPrice").innerHTML="<strong>Prix :</strong> "+billet.prix+"€";
+    document.getElementById("ticketNumber").innerHTML="<strong>Numéro :</strong> "+numero;
+
+    // QR CODE
+    new QRious({element:document.getElementById('qrcode'), value:`${numero}|${billet.type}|${billet.prix}€`, size:150});
+    document.getElementById("ticket").style.display="block";
+}
+
+function telechargerTicket(){
+    const canvas = document.getElementById("qrcode");
+    const dataUrl = canvas.toDataURL("image/png");
+    const link = document.createElement("a");
+    link.href = dataUrl;
+    link.download = `ticket-${billet.type}.png`;
+    link.click();
+    alert("QR code téléchargé ! Vous pouvez l'imprimer ou le montrer à l'entrée.");
+}
+
+/* 🎨 ANIMATION PASTEQUE + PALESTINE 🇵🇸 */
+for(let i=0;i<20;i++){
+    let wm = document.createElement("div");
+    wm.className = "watermelon";
+
+    // 🍉 ou 🇵🇸 aléatoirement
+    wm.innerHTML = Math.random() > 0.5 ? "🍉" : "🇵🇸";
+
+    wm.style.left = Math.random() * 100 + "vw";
+    wm.style.animationDuration = (8 + Math.random() * 10) + "s";
+    wm.style.fontSize = (24 + Math.random() * 12) + "px";
+
+    document.body.appendChild(wm);
+}
+</script>
+
+</body>
+</html>

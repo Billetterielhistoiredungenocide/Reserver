@@ -179,6 +179,7 @@ button {
 <script>
 let fr = true;
 
+/* MULTILINGUE */
 function toggleLang() {
     fr = !fr;
     document.getElementById("date").innerText = fr ? "Janvier / Février 2026" : "January / February 2026";
@@ -192,9 +193,16 @@ function toggleLang() {
         : "✊ An event for memory, solidarity and dignity. 🍉";
 }
 
-/* TICKET */
+/* TICKET + PAYPAL */
 let billet={prix:null,type:null};
-function payer(prix,type){ billet.prix=prix; billet.type=type; }
+
+function payer(prix,type){
+    billet.prix = prix;
+    billet.type = type;
+    // ouvre PayPal
+    window.open(`https://paypal.me/Isma016/${prix}`, '_blank');
+}
+
 function genererTicket(){
     if(!billet.prix){ alert("Veuillez payer."); return; }
     const num="SM-"+Math.floor(Math.random()*1000000);
@@ -205,7 +213,7 @@ function genererTicket(){
     document.getElementById("ticket").style.display="block";
 }
 
-/* ANIMATION */
+/* ANIMATION PASTEQUE/PALESTINE */
 for(let i=0;i<20;i++){
     let wm=document.createElement("div");
     wm.className="watermelon";

@@ -9,18 +9,24 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
 
 <style>
+:root {
+    --bg-color: #111;
+    --text-color: white;
+}
+body.light {
+    --bg-color: #f9f9f9;
+    --text-color: #111;
+}
 body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
-    color: white;
+    color: var(--text-color);
     overflow-x: hidden;
-    background:
-        radial-gradient(circle at top left, rgba(0,122,61,0.4), transparent 40%),
-        radial-gradient(circle at bottom right, rgba(206,17,38,0.4), transparent 40%),
-        linear-gradient(135deg, #000, #111);
+    background: var(--bg-color);
+    transition: background 0.35s, color 0.35s;
 }
 
-/* COOKIE CONSENT */
+/* COOKIE */
 #cookie-overlay {
     position: fixed;
     inset: 0;
@@ -31,7 +37,6 @@ body {
     justify-content: center;
     z-index: 9999;
 }
-
 #cookie-box {
     background: linear-gradient(145deg, #111, #1b1b1b);
     max-width: 420px;
@@ -41,23 +46,14 @@ body {
     box-shadow: 0 30px 80px rgba(0,0,0,0.8);
     animation: cookiePop 0.5s ease;
 }
-
-#cookie-box h3 {
-    margin-top: 0;
-}
-
-#cookie-box p {
-    font-size: 0.95rem;
-    opacity: 0.9;
-}
-
+#cookie-box h3 { margin-top: 0; }
+#cookie-box p { font-size: 0.95rem; opacity: 0.9; }
 .cookie-actions {
     display: flex;
     justify-content: flex-end;
     gap: 12px;
     margin-top: 25px;
 }
-
 .cookie-actions button {
     padding: 10px 18px;
     border-radius: 25px;
@@ -65,23 +61,15 @@ body {
     cursor: pointer;
     border: none;
 }
-
-.cookie-refuse {
-    background: transparent;
-    color: white;
-    border: 1px solid rgba(255,255,255,0.4);
-}
-
-.cookie-accept {
-    background: linear-gradient(90deg, #007a3d, #ce1126);
-    color: white;
-}
+.cookie-refuse { background: transparent; color: white; border: 1px solid rgba(255,255,255,0.4); }
+.cookie-accept { background: linear-gradient(90deg, #007a3d, #ce1126); color: white; }
 
 @keyframes cookiePop {
     from { transform: scale(0.9); opacity: 0; }
     to { transform: scale(1); opacity: 1; }
 }
 
+/* CONTAINER */
 .container {
     max-width: 1100px;
     margin: auto;
@@ -90,120 +78,60 @@ body {
     position: relative;
     z-index: 2;
 }
+.poster { width: 70%; max-height: 60vh; object-fit: contain; border-radius: 18px; box-shadow: 0 25px 50px rgba(0,0,0,0.7); }
 
-.poster {
-    width: 70%;
-    max-height: 60vh;
-    object-fit: contain;
-    border-radius: 18px;
-    box-shadow: 0 25px 50px rgba(0,0,0,0.7);
+.info h1 { font-size: 2.3rem; font-weight: 800; margin: 20px 0 5px; }
+.engage { margin: 25px auto; max-width: 700px; }
+.prices { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+.price-card { background: rgba(255,255,255,0.08); border-radius: 18px; padding: 22px 35px; }
+.price { font-size: 2.5rem; font-weight: 800; background: linear-gradient(90deg, #007a3d, #fff, #ce1126); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.buttons { margin: 35px 0; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+button { padding: 15px 25px; border-radius: 50px; border: none; font-weight: 600; cursor: pointer; }
+.reserve { background: linear-gradient(90deg, #007a3d, #ce1126); color: white; }
+.online { background: transparent; color: white; border: 2px solid white; }
+#ticket { display:none; margin-top:30px; background:rgba(255,255,255,0.1); padding:25px; border-radius:20px; }
+
+.watermelon { position: fixed; top: -50px; font-size: 30px; animation: float linear infinite; opacity: 0.6; }
+@keyframes float { from { transform: translateY(-50px); } to { transform: translateY(110vh); } }
+
+/* LANG SWITCH DROPDOWN */
+.lang-switch-dropdown {
+    position: fixed; top: 15px; right: 15px; z-index: 10;
 }
-
-.lang-btn {
-    position: fixed;
-    top: 15px;
-    right: 15px;
+.lang-switch-dropdown select {
     background: rgba(255,255,255,0.15);
+    color: white;
     border: 1px solid rgba(255,255,255,0.3);
-    color: white;
-    padding: 8px 15px;
-    border-radius: 20px;
-    cursor: pointer;
-    z-index: 5;
-}
-
-.info h1 {
-    font-size: 2.3rem;
-    font-weight: 800;
-    margin: 20px 0 5px;
-}
-
-.engage {
-    margin: 25px auto;
-    max-width: 700px;
-}
-
-.prices {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
-.price-card {
-    background: rgba(255,255,255,0.08);
-    border-radius: 18px;
-    padding: 22px 35px;
-}
-
-.price {
-    font-size: 2.5rem;
-    font-weight: 800;
-    background: linear-gradient(90deg, #007a3d, #fff, #ce1126);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.buttons {
-    margin: 35px 0;
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-button {
-    padding: 15px 25px;
-    border-radius: 50px;
-    border: none;
-    font-weight: 600;
+    border-radius: 12px;
+    padding: 6px 12px;
+    font-size: 16px;
     cursor: pointer;
 }
+.lang-switch-dropdown select:hover { background: rgba(255,255,255,0.3); }
 
-.reserve {
-    background: linear-gradient(90deg, #007a3d, #ce1126);
-    color: white;
-}
+/* SOUND BUTTON */
+#soundBtn { position: fixed; top: 15px; left: 15px; background: rgba(255,255,255,0.15); color: white; border: 1px solid rgba(255,255,255,0.3); border-radius: 12px; padding: 6px 12px; cursor: pointer; z-index: 10; }
 
-.online {
-    background: transparent;
-    color: white;
-    border: 2px solid white;
-}
+/* ANIMATION FADE LANG */
+.fade { animation: fadeLang 0.35s ease; }
+@keyframes fadeLang { from { opacity: 0; transform: translateY(5px);} to { opacity: 1; transform: translateY(0);} }
 
-.watermelon {
-    position: fixed;
-    top: -50px;
-    font-size: 30px;
-    animation: float linear infinite;
-    opacity: 0.6;
-}
-
-@keyframes float {
-    from { transform: translateY(-50px); }
-    to { transform: translateY(110vh); }
-}
-
-#ticket {
-    display:none;
-    margin-top:30px;
-    background:rgba(255,255,255,0.1);
-    padding:25px;
-    border-radius:20px;
+/* MOBILE */
+@media (max-width: 600px) {
+    .poster { width: 90%; max-height: 50vh; }
+    .info h1 { font-size: 1.8rem; }
+    .buttons { flex-direction: column; gap: 10px; }
+    .price-card { width: 100%; max-width: 300px; margin: auto; }
 }
 </style>
 </head>
-
 <body>
 
 <!-- COOKIE -->
 <div id="cookie-overlay">
   <div id="cookie-box">
     <h3>🍪 Respect de votre vie privée</h3>
-    <p>
-      Ce site utilise des cookies nécessaires au bon fonctionnement.
-      Vous pouvez accepter ou refuser.
-    </p>
+    <p>Ce site utilise des cookies nécessaires au bon fonctionnement. Vous pouvez accepter ou refuser.</p>
     <div class="cookie-actions">
       <button class="cookie-refuse" onclick="refuseCookies()">Refuser</button>
       <button class="cookie-accept" onclick="acceptCookies()">Accepter</button>
@@ -211,38 +139,33 @@ button {
   </div>
 </div>
 
-<button class="lang-btn" onclick="toggleLang()">🌍 FR / EN</button>
+<!-- LANG DROPDOWN -->
+<div class="lang-switch-dropdown">
+  <select id="langSelect" onchange="setLang(this.value)">
+    <option value="fr">🇫🇷 Français</option>
+    <option value="en">🇬🇧 English</option>
+  </select>
+</div>
+
+<!-- SOUND BUTTON -->
+<button id="soundBtn">🔊</button>
 
 <div class="container">
-
 <img src="https://i.ibb.co/v6v8vbXh/Design-sans-titre.png" class="poster">
-
 <div class="info">
     <h1 id="date">Janvier / Février 2026</h1>
     <p id="place">📍 Sainte-Marie</p>
 </div>
-
-<div class="engage" id="engage">
-✊ Un événement pour la mémoire, la solidarité et la dignité. 🍉
-</div>
-
+<div class="engage" id="engage">✊ Un événement pour la mémoire, la solidarité et la dignité. 🍉</div>
 <div class="prices">
-    <div class="price-card">
-        <h3 id="entry">Entrée</h3>
-        <div class="price">5€</div>
-    </div>
-    <div class="price-card">
-        <h3 id="vip">VIP</h3>
-        <div class="price">10€</div>
-    </div>
+    <div class="price-card"><h3 id="entry">Entrée</h3><div class="price">5€</div></div>
+    <div class="price-card"><h3 id="vip">VIP</h3><div class="price">10€</div></div>
 </div>
-
 <div class="buttons">
     <button class="reserve" onclick="payer(5,'Entrée')">💳 Payer 5€</button>
     <button class="reserve" onclick="payer(10,'VIP')">💳 Payer 10€</button>
     <button class="online" onclick="genererTicket()">✅ Générer ticket</button>
 </div>
-
 <div id="ticket">
     <h2>🎟️ TICKET OFFICIEL</h2>
     <p id="ticketType"></p>
@@ -250,37 +173,66 @@ button {
     <p id="ticketNumber"></p>
     <canvas id="qrcode"></canvas>
 </div>
-
 </div>
 
 <script>
 /* COOKIE */
-function acceptCookies(){
-    localStorage.setItem("cookieConsent","accepted");
-    document.getElementById("cookie-overlay").style.display="none";
-}
-function refuseCookies(){
-    localStorage.setItem("cookieConsent","refused");
-    document.getElementById("cookie-overlay").style.display="none";
-}
+function acceptCookies(){ localStorage.setItem("cookieConsent","accepted"); document.getElementById("cookie-overlay").style.display="none"; }
+function refuseCookies(){ localStorage.setItem("cookieConsent","refused"); document.getElementById("cookie-overlay").style.display="none"; }
 window.onload=()=>{
-    if(!localStorage.getItem("cookieConsent")){
-        document.getElementById("cookie-overlay").style.display="flex";
-    }
+    if(!localStorage.getItem("cookieConsent")){ document.getElementById("cookie-overlay").style.display="flex"; }
 }
 
-/* MULTILINGUE */
-let fr=true;
-function toggleLang(){
-    fr=!fr;
-    document.getElementById("date").innerText=fr?"Janvier / Février 2026":"January / February 2026";
+/* SOUND */
+const audio = new Audio('https://www.soundjay.com/buttons/sounds/button-16.mp3');
+document.getElementById("soundBtn").addEventListener("click",()=>audio.play());
+
+/* MULTILINGUE PRO + AUTO-DETECTION */
+let lang = "fr";
+const texts = {
+  fr:{date:"Janvier / Février 2026", engage:"✊ Un événement pour la mémoire, la solidarité et la dignité. 🍉", entry:"Entrée", pay5:"💳 Payer 5€", pay10:"💳 Payer 10€", generate:"✅ Générer ticket", cookieTitle:"🍪 Respect de votre vie privée", cookieText:"Ce site utilise des cookies nécessaires au bon fonctionnement. Vous pouvez accepter ou refuser.", accept:"Accepter", refuse:"Refuser"},
+  en:{date:"January / February 2026", engage:"✊ An event for memory, solidarity and dignity. 🍉", entry:"Entry", pay5:"💳 Pay €5", pay10:"💳 Pay €10", generate:"✅ Generate ticket", cookieTitle:"🍪 Privacy matters", cookieText:"This site uses cookies necessary for proper operation. You can accept or refuse.", accept:"Accept", refuse:"Refuse"}
+};
+
+function applyLang(){
+    const t=texts[lang];
+    document.getElementById("date").innerText=t.date;
+    document.getElementById("engage").innerText=t.engage;
+    document.getElementById("entry").innerText=t.entry;
+    document.querySelectorAll(".reserve")[0].innerText=t.pay5;
+    document.querySelectorAll(".reserve")[1].innerText=t.pay10;
+    document.querySelector(".online").innerText=t.generate;
+    document.querySelector("#cookie-box h3").innerText=t.cookieTitle;
+    document.querySelector("#cookie-box p").innerText=t.cookieText;
+    document.querySelector(".cookie-accept").innerText=t.accept;
+    document.querySelector(".cookie-refuse").innerText=t.refuse;
+    document.getElementById("langSelect").value=lang;
+    document.querySelector(".container").classList.add("fade");
+    setTimeout(()=>document.querySelector(".container").classList.remove("fade"),350);
 }
+
+function setLang(l){ lang=l; localStorage.setItem("siteLang",l); applyLang(); }
+
+/* AUTO-DETECTION LANGUE + PAYS */
+window.addEventListener("load",()=>{
+    const saved=localStorage.getItem("siteLang");
+    if(saved){ lang=saved; } 
+    else{ const nav=navigator.language.toLowerCase(); lang=nav.startsWith("fr")?"fr":"en"; }
+    applyLang();
+
+    // dark/light automatique
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    if(prefersDark) document.body.classList.remove("light"); else document.body.classList.add("light");
+
+    console.log("Langue détectée:", lang);
+    console.log("Pays détecté:", navigator.language.split("-")[1] || "FR");
+});
 
 /* TICKET */
 let billet={prix:null,type:null};
 function payer(prix,type){ billet.prix=prix; billet.type=type; }
 function genererTicket(){
-    if(!billet.prix){alert("Veuillez payer.");return;}
+    if(!billet.prix){ alert("Veuillez payer."); return; }
     const num="SM-"+Math.floor(Math.random()*1000000);
     document.getElementById("ticketType").innerText="Billet : "+billet.type;
     document.getElementById("ticketPrice").innerText="Prix : "+billet.prix+"€";
@@ -289,7 +241,7 @@ function genererTicket(){
     document.getElementById("ticket").style.display="block";
 }
 
-/* ANIMATION */
+/* ANIMATION PASTEQUE / PALESTINE */
 for(let i=0;i<20;i++){
     let wm=document.createElement("div");
     wm.className="watermelon";
@@ -299,6 +251,5 @@ for(let i=0;i<20;i++){
     document.body.appendChild(wm);
 }
 </script>
-
 </body>
 </html>
